@@ -1,5 +1,7 @@
 /**
- * Borrowed heavily from http://demo.tumblr.com as well as others...
+ * Borrowed heavily from http://demo.tumblr.com/
+ * 
+ * As used on http://thehiddenventure.com
  
 ul.tumblr-posts
 	list-style-type: none
@@ -9,17 +11,51 @@ ul.tumblr-posts
 		position: relative
 		margin-bottom: 20px
 		padding: 0px 0px 20px 0px
-		border-bottom: 1px #EDEDED solid
+		border-bottom: 1px #EDEDED dotted
+		font-family: Helvetica,Arial,sans-serif
+
+		.short
+			font-size: 36px
+			line-height: 40px
+			letter-spacing: -1px
+			font-weight: bold
+		.medium
+			font-size: 25px
+			line-height: 27px
+			letter-spacing: -1px
+		.long
+			font-size: 16px
+			line-height: 20px
+
+		.titleasdf
+			color: #000
+			letter-spacing: -1px
+			margin: 0px 0px 5px 0px
+			a
+				color: #6498cc
+				text-decoration: none
 
 		.date
 			font-size: 10px
+			float: left
+			margin-right: 3px
 			.posted
 				color: #555555
+
+		.permalink
+			font-size: 10px
+			float: left
+			margin-right: 3px
+			.permalink-text
+				display: none
+			a
+				text-decoration: none
+
 		.tags
 			font-size: 10px
+			float: left
 			.tagged
-				float: left
-				margin-right: 3px
+				display: none
 			ul
 				list-style-type: none
 				padding-left: 0px
@@ -27,13 +63,15 @@ ul.tumblr-posts
 				li
 					float: left
 					margin-right: 3px
+					a
+						text-decoration: none
+					.tag-commas
+						display: none
 
-		.caption
-			font-size: 14px
-			font-weight: bold
+		.caption, .title, .link
 			color: #444
 			margin-top: 10px
-			padding: 0px 20px 0px 0px
+			padding: 0px 0px 5px 0px
 			a
 				color: #444
 
@@ -49,12 +87,7 @@ ul.tumblr-posts
 		&.tumblr-post-photo
 		
 		&.tumblr-post-link
-			.link
-				a
-					font: Bold 20px Helvetica, Arial, sans-serif
-					letter-spacing: -1px
-					color: #c00
-		    
+
 			span.description
 				font-size: 13px
 				font-weight: normal
@@ -70,18 +103,6 @@ ul.tumblr-posts
 					color: #888
 					border-left: solid 5px #6498cc
 					padding-left: 10px
-					
-					&.short
-						font-size: 36px
-						line-height: 40px
-						letter-spacing: -1px
-					&.medium
-						font-size: 25px
-						line-height: 27px
-						letter-spacing: -1px
-					&.long
-						font-size: 16px
-						line-height: 20px
 					a
 						color: #888
 				.source

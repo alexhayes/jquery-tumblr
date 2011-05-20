@@ -8,7 +8,8 @@
  * @category jQuery plugin
  * @copyright (c) 2011 Alex Hayes (alution.com)
  * @license Dual licensed under the MIT and GPL licenses.
- * @todo Add in pagination
+ * @todo Add in pagination.
+ * @todo Add ability to define hooks for user defined markup.
  */
 (function( $ ) {
 
@@ -25,15 +26,19 @@
 		 *                        - photoSize: The photo size to use, accepted values are 75, 100, 250, 400, 500 and 1280. Default is 400.
 		 *                        - videoSize: The video size to embed, accepted values are 250, 500 or false. If false, the tumblr 'video-player' parameter will be used.
 		 * 	                      - timeago: If true (default) then jquery-timeago will be used for post dates.
+		 *                        - shortLength: For captions and titles that are less than this length the css class 'short' will be added. Default is 50.
+		 *                        - mediumLength: For captions and titles that are less than this length the css class 'medium' will be added. Default is 100.
 		 */
 		init : function( options ) {
 			var settings = {
-				'timeout'   : 3000,
-				'perPage'   : 20,
-				'start'     : 0,
-				'photoSize' : 400,
-				'videoSize' : false,
-				'timeago'   : true
+				'timeout'      : 3000,
+				'perPage'      : 20,
+				'start'        : 0,
+				'photoSize'    : 400,
+				'videoSize'    : false,
+				'timeago'      : true,
+				'shortLength'  : 50,
+				'mediumLength' : 100
 		    };
 			var that = this;
 			
@@ -124,7 +129,8 @@
 
 			switch(post.type) {
 				case "regular": {
-					body = '<div class="title">' + post['regular-title'] + '</div>' +
+					var extraClass = $this.tumblr('get_css_text_length', post['regular-title']);
+					body = '<div class="title ' + extraClass + '">' + post['regular-title'] + '</div>' +
                         	'<div class="description">' + post['regular-body'] + '</div>';
 					break;
 				}
@@ -137,25 +143,20 @@
 					if(post['photo-link-url']) {
 						body += '</a>';
 					}
-					body += '<div class="caption">' + post['photo-caption'] + '</div>' +
+					body += '<div class="description">' + post['photo-caption'] + '</div>' +
 						'</div>';
 					break;
 				}
 				case "link": {
-					body = '<div class="link"><a href="' + post['link-url'] + '">' + post['link-text'] + '</a></div>';
+					var extraClass = $this.tumblr('get_css_text_length', post['link-text']);
+					body = '<div class="link ' + extraClass + '"><a href="' + post['link-url'] + '">' + post['link-text'] + '</a></div>';
 					if(post["link-description"]) {
 						body += '<div class="description">' + post['link-description'] + '</div>';
 					}
 					break;
 				}
 				case "quote": {
-					var extraClass = 'long';
-					if(post['quote-text'].length < 100) {
-						extraClass = 'short';
-					}
-					else if(post['quote-text'].length < 300) {
-						extraClass = 'medium';
-					}
+					var extraClass = $this.tumblr('get_css_text_length', post['quote-text']);
 					body = 
 	                    '<div class="quote">' +
 	                        '<div class="quote-text ' + extraClass + '">' + post['quote-text'] + '</div>' +
@@ -164,7 +165,8 @@
 					break;
 				}
 				case "conversation": {
-					body = '<div class="caption">' + post['conversation-title'] + '</div>' +
+					var extraClass = $this.tumblr('get_css_text_length', post['conversation-title']);
+					body = '<div class="caption ' + extraClass + '">' + post['conversation-title'] + '</div>' +
 						'<div class="conversation">' + '<ul>';
 					
 					var users = [];
@@ -187,7 +189,7 @@
                         // '<script src="http://assets.tumblr.com/javascript/tumblelog.js?537" language="javascript" type="text/javascript"></script>' + 
                     	'<div class="media">' + post['audio-player'] + '</div>' +
                         // '<script type="text/javascript">replaceIfFlash(9,"audio_player_459260683",\'\x3cdiv class=\x22audio_player\x22\x3e&lt;embed type="application/x-shockwave-flash" src="http://assets.tumblr.com/swf/audio_player_black.swf?audio_file=http://www.tumblr.com/audio_file/459260683/tumblr_ksc4i2SkVU1qz8ouq&amp;color=FFFFFF" height="27" width="207" quality="best"&gt;&lt;/embed&gt;\x3c/div\x3e\')</script>'
-						'<div class="caption">' + post['audio-caption'] + '</div>'; 
+						'<div class="description">' + post['audio-caption'] + '</div>'; 
 					break;
 				}
 				case "video": {
@@ -197,7 +199,7 @@
 					}
 					body = 
                         '<div class="media">' + post[player] + '</div>' +
-                        '<div class="caption">' + post['video-caption'] + '</div>';
+                        '<div class="description">' + post['video-caption'] + '</div>';
 					break;
 				}
 				default:
@@ -207,16 +209,14 @@
 			// Add the li to the posts stack.
 			li = 
 				'<li class="tumblr-post tumblr-post-' + post.type + ' post-id-' + post.id + ' ' + oddeven + '">' +
-					//'<div class="post">' +
+					'<div class="post-body">' +
 		            	body +
-		        		'<a href="' + post['url-with-slug'] + '" class="permalink" target="_blank">' +
-		                	'<div class="footer for_permalink">' +
-		                    	'<div class="date"><span class="posted">Posted</span> <abbr class="timeago" title="' + post['date'] + '">' + post['date'] + '</abbr></div>' +
-		                   		'<div class="notes"></div>' +
-								// '<div class="clear"></div>' +
-		                	'</div>' +
-						'</a>' +
-						'<div class="footer">';
+		            '</div>' +
+					'<div class="post-footer">' +
+                    	'<div class="date"><span class="posted">Posted</span> <abbr class="timeago" title="' + post['date'] + '">' + post['date'] + '</abbr></div>' +
+						'<div class="permalink">' +
+							'<a href="' + post['url-with-slug'] + '" class="permalink" target="_blank"><span class="permalink-icon">&#167;</span> <span class="permalink-text">Permalink</span></a>' +
+	                	'</div>';
 
 			if(post.tags) {
 				li += '<div class="tags"><span class="tagged">Tagged </span> <ul>';
@@ -230,18 +230,32 @@
 					else if(i == 0) {
 						extraClass = 'first';
 					}
-					li += '<li class="' + extraClass + '"><a href="' + data.options.url + '/tagged/' + tag +'" target="_blank">' + tag + '</a>' + tag_comma + '</li>';
+					li += '<li class="' + extraClass + '"><a href="' + data.options.url + '/tagged/' + tag +'" target="_blank">#' + tag + '</a>' + tag_comma + '</li>';
 				});
 				li += '</ul></div>';
 			}
 
-			li += 		// '<div class="clear"></div>' +
-		        		'</div>' +
-	        		// '</div>' +
-		        '</li>'
-			
+			li += '</div>' +
+		        '</li>';
+
 			data.posts.append(li);
 			
+		},
+
+		get_css_text_length: function(text) {
+			var $this = $(this),
+				data = $this.data('tumblr'),
+				shortLength = data.options.shortLength,
+				mediumLength = data.options.mediumLength;
+				 
+			var extraClass = 'long';
+			if(text.length < shortLength) {
+				extraClass = 'short';
+			}
+			else if(text.length < mediumLength) {
+				extraClass = 'medium';
+			}
+			return extraClass;
 		},
 
 		destroy : function() {

@@ -32,6 +32,12 @@ The following options are available:
 	- photoSize: The photo size to use, accepted values are 75, 100, 250, 400, 500 and 1280. Default is 400.
 	- videoSize: The video size to embed, accepted values are 250, 500 or false. If false, the tumblr 'video-player' parameter will be used.
 	- timeago: If true (default) then jquery-timeago will be used for post dates.
+	- shortLength: For captions and titles that are less than this length the css class 'short' will be added. Default is 50.
+	- mediumLength: For captions and titles that are less than this length the css class 'medium' will be added. Default is 100.
+
+## Optional Requirements
+
+[jquery-timeago](http://timeago.yarp.com/) - is needed if the timeago option is true (default).
 
 ## License
 
