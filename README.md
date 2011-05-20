@@ -4,7 +4,7 @@ jquery-tumblr is a plugin that parses a tumblr feed and outputs markup.
 
 It was inspired by the work of [Chris Tran](https://chris-tran.com/blog/?p=236) however realy bares no resemblance to his code.
 
-Note that the markup generated is similar to that of tumblr's default theme however posts are enclosed in <li> tags rather than just <div>'s.
+Note that the markup generated is similar to that of tumblr's default theme however posts are enclosed in ul/li tags rather than just div's.
 
 ## Example
 
