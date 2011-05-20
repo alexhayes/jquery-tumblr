@@ -31,6 +31,7 @@ The following options are available:
 	- start: The post offset to start from. The default is 0.
 	- photoSize: The photo size to use, accepted values are 75, 100, 250, 400, 500 and 1280. Default is 400.
 	- videoSize: The video size to embed, accepted values are 250, 500 or false. If false, the tumblr 'video-player' parameter will be used.
+	- timeago: If true (default) then jquery-timeago will be used for post dates.
 
 ## License
 

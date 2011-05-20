@@ -24,6 +24,7 @@
 		 *                        - start: The post offset to start from. The default is 0.
 		 *                        - photoSize: The photo size to use, accepted values are 75, 100, 250, 400, 500 and 1280. Default is 400.
 		 *                        - videoSize: The video size to embed, accepted values are 250, 500 or false. If false, the tumblr 'video-player' parameter will be used.
+		 * 	                      - timeago: If true (default) then jquery-timeago will be used for post dates.
 		 */
 		init : function( options ) {
 			var settings = {
@@ -31,7 +32,8 @@
 				'perPage'   : 20,
 				'start'     : 0,
 				'photoSize' : 400,
-				'videoSize' : false
+				'videoSize' : false,
+				'timeago'   : true
 		    };
 			var that = this;
 			
@@ -105,7 +107,11 @@
 					postIterator++;
 				});
 				
+				if(data.options.timeago) {
+					$("abbr.timeago", data.posts).timeago();
+				}
 				$this.append(data.posts);
+				
 			});
 		},
 
@@ -119,7 +125,7 @@
 			switch(post.type) {
 				case "regular": {
 					body = '<div class="title">' + post['regular-title'] + '</div>' +
-                        	'<div class="copy">' + post['regular-body'] + '</div>';
+                        	'<div class="description">' + post['regular-body'] + '</div>';
 					break;
 				}
 				case "photo": {
@@ -131,26 +137,34 @@
 					if(post['photo-link-url']) {
 						body += '</a>';
 					}
-					body += '<div class="copy">' + post['photo-caption'] + '</div>';
+					body += '<div class="caption">' + post['photo-caption'] + '</div>' +
+						'</div>';
 					break;
 				}
 				case "link": {
 					body = '<div class="link"><a href="' + post['link-url'] + '">' + post['link-text'] + '</a></div>';
 					if(post["link-description"]) {
-						body += '<div class="copy">' + post['link-description'] + '</div>';
+						body += '<div class="description">' + post['link-description'] + '</div>';
 					}
 					break;
 				}
 				case "quote": {
+					var extraClass = 'long';
+					if(post['quote-text'].length < 100) {
+						extraClass = 'short';
+					}
+					else if(post['quote-text'].length < 300) {
+						extraClass = 'medium';
+					}
 					body = 
 	                    '<div class="quote">' +
-	                        '<div class="quote-text">' + post['quote-text'] + '</div>' +
+	                        '<div class="quote-text ' + extraClass + '">' + post['quote-text'] + '</div>' +
 							'<div class="source">&mdash; ' + post['quote-source'] + '</div>' +
 	                    '</div>';
 					break;
 				}
 				case "conversation": {
-					body = '<div class="conversation-title">' + post['conversation-title'] + '</div>' +
+					body = '<div class="caption">' + post['conversation-title'] + '</div>' +
 						'<div class="conversation">' + '<ul>';
 					
 					var users = [];
@@ -173,7 +187,7 @@
                         // '<script src="http://assets.tumblr.com/javascript/tumblelog.js?537" language="javascript" type="text/javascript"></script>' + 
                     	'<div class="media">' + post['audio-player'] + '</div>' +
                         // '<script type="text/javascript">replaceIfFlash(9,"audio_player_459260683",\'\x3cdiv class=\x22audio_player\x22\x3e&lt;embed type="application/x-shockwave-flash" src="http://assets.tumblr.com/swf/audio_player_black.swf?audio_file=http://www.tumblr.com/audio_file/459260683/tumblr_ksc4i2SkVU1qz8ouq&amp;color=FFFFFF" height="27" width="207" quality="best"&gt;&lt;/embed&gt;\x3c/div\x3e\')</script>'
-						'<div class="copy">' + post['audio-caption'] + '</div>'; 
+						'<div class="caption">' + post['audio-caption'] + '</div>'; 
 					break;
 				}
 				case "video": {
@@ -183,7 +197,7 @@
 					}
 					body = 
                         '<div class="media">' + post[player] + '</div>' +
-                        '<div class="copy">' + post['video-caption'] + '</div>';
+                        '<div class="caption">' + post['video-caption'] + '</div>';
 					break;
 				}
 				default:
@@ -195,9 +209,9 @@
 				'<li class="tumblr-post tumblr-post-' + post.type + ' post-id-' + post.id + ' ' + oddeven + '">' +
 					//'<div class="post">' +
 		            	body +
-		        		'<a href="' + post['url-with-slug'] + '" class="permalink">' +
+		        		'<a href="' + post['url-with-slug'] + '" class="permalink" target="_blank">' +
 		                	'<div class="footer for_permalink">' +
-		                    	'<div class="date timeago">' + post['date-gmt'] + '</div>' +
+		                    	'<div class="date"><span class="posted">Posted</span> <abbr class="timeago" title="' + post['date'] + '">' + post['date'] + '</abbr></div>' +
 		                   		'<div class="notes"></div>' +
 								// '<div class="clear"></div>' +
 		                	'</div>' +
@@ -205,9 +219,18 @@
 						'<div class="footer">';
 
 			if(post.tags) {
-				li += '<div class="tags"><span class="tagged">Tagged:</span> <ul>';
+				li += '<div class="tags"><span class="tagged">Tagged </span> <ul>';
 				$.each(post.tags, function(i, tag) {
-					li += '<li><a href="' + data.options.url + '/tagged/' + tag +'" target="_blank">' + tag + '</a></li>';
+					var tag_comma = '<span class="tag-commas">, </span>';
+					var extraClass = '';
+					if(i == post.tags.length - 1 ) {
+						extraClass = 'last';
+						tag_comma = '';
+					}
+					else if(i == 0) {
+						extraClass = 'first';
+					}
+					li += '<li class="' + extraClass + '"><a href="' + data.options.url + '/tagged/' + tag +'" target="_blank">' + tag + '</a>' + tag_comma + '</li>';
 				});
 				li += '</ul></div>';
 			}
