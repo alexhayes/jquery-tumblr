@@ -1,0 +1,166 @@
+/*
+ * Borrowed heavily from http://demo.tumblr.com as well as others... */
+/* line 4, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts {
+  list-style-type: none;
+  padding-left: 0px;
+}
+/* line 8, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 0px 0px 20px 0px;
+  border-bottom: 1px #ededed solid;
+}
+/* line 14, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post .date {
+  font-size: 10px;
+}
+/* line 16, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post .date .posted {
+  color: #555555;
+}
+/* line 18, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post .tags {
+  font-size: 10px;
+}
+/* line 20, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post .tags .tagged {
+  float: left;
+  margin-right: 3px;
+}
+/* line 23, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post .tags ul {
+  list-style-type: none;
+  padding-left: 0px;
+  display: inline;
+}
+/* line 27, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post .tags ul li {
+  float: left;
+  margin-right: 3px;
+}
+/* line 31, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post .caption {
+  font-size: 14px;
+  font-weight: bold;
+  color: #444444;
+  margin-top: 10px;
+  padding: 0px 20px 0px 0px;
+}
+/* line 37, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post .caption a {
+  color: #444444;
+}
+/* line 40, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-regular {
+  font-size: 12px;
+  color: #444444;
+  line-height: 17px;
+}
+/* line 44, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-regular blockquote {
+  font-style: italic;
+  border-left: solid 2px #444444;
+  padding-left: 10px;
+}
+/* line 53, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-link .link a {
+  font: Bold 20px Helvetica, Arial, sans-serif;
+  letter-spacing: -1px;
+  color: #cc0000;
+}
+/* line 58, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-link span.description {
+  font-size: 13px;
+  font-weight: normal;
+  letter-spacing: -1px;
+  color: #444444;
+}
+/* line 65, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-quote .quote {
+  margin: 0 0 1.5em;
+}
+/* line 67, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-quote .quote .quote-text {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #888888;
+  border-left: solid 5px #6498cc;
+  padding-left: 10px;
+}
+/* line 74, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-quote .quote .quote-text.short {
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: -1px;
+}
+/* line 78, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-quote .quote .quote-text.medium {
+  font-size: 25px;
+  line-height: 27px;
+  letter-spacing: -1px;
+}
+/* line 82, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-quote .quote .quote-text.long {
+  font-size: 16px;
+  line-height: 20px;
+}
+/* line 85, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-quote .quote .quote-text a {
+  color: #888888;
+}
+/* line 87, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-quote .quote .source {
+  font-size: 16px;
+  font-weight: Bold;
+  color: #555555;
+  margin-top: 5px;
+}
+/* line 92, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-quote .quote .source a {
+  color: #555555;
+}
+/* line 96, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-conversation .conversation {
+  margin: 0 0 1.5em;
+}
+/* line 98, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-conversation .conversation ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px 0px 0px 1px;
+  border-left: solid 5px #bbbbbb;
+}
+/* line 103, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-conversation .conversation ul li {
+  font-size: 12px;
+  padding: 4px 10px 4px 8px;
+  color: #444444;
+  margin-bottom: 1px;
+}
+/* line 109, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-conversation .conversation ul li span.label {
+  font-weight: bold;
+  margin-right: 3px;
+}
+/* line 112, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-conversation .conversation ul li span.user-1 {
+  color: #cc0000;
+}
+/* line 114, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-conversation .conversation ul li span.user-2 {
+  color: #0000cc;
+}
+/* line 116, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-conversation .conversation ul li span.user-3 {
+  color: #00aa00;
+}
+/* line 118, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-conversation .conversation ul li.odd {
+  background-color: #f4f4f4;
+}
+/* line 120, ../../sass/jquery.tumblr.sass */
+ul.tumblr-posts li.tumblr-post.tumblr-post-conversation .conversation ul li.even {
+  background-color: #e8e8e8;
+}
