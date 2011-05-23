@@ -28,17 +28,23 @@
 		 * 	                      - timeago: If true (default) then jquery-timeago will be used for post dates.
 		 *                        - shortLength: For captions and titles that are less than this length the css class 'short' will be added. Default is 50.
 		 *                        - mediumLength: For captions and titles that are less than this length the css class 'medium' will be added. Default is 100.
+		 *                        - fancyBox: If true (default) then fancybox will be used when there are multiple photos. See photoThumbSize and photoLightboxSize
+		 *                        - photoThumbSize: If there are multiple photos, they will be output in a ul/li tags, this value will be the size of image used. Accepted values are 75, 100, 250, 400, 500 and 1280. Default is 75.
+		 *                        - photoLightboxSize: If there are multiple photos, this image size will be used for lightbox. Accepted values are 75, 100, 250, 400, 500 and 1280. Default is 1280.
 		 */
 		init : function( options ) {
 			var settings = {
-				'timeout'      : 3000,
-				'perPage'      : 20,
-				'start'        : 0,
-				'photoSize'    : 400,
-				'videoSize'    : false,
-				'timeago'      : true,
-				'shortLength'  : 50,
-				'mediumLength' : 100
+				'timeout'           : 3000,
+				'perPage'           : 20,
+				'start'             : 0,
+				'photoSize'         : 400,
+				'videoSize'         : false,
+				'timeago'           : true,
+				'shortLength'       : 50,
+				'mediumLength'      : 100,
+				'fancybox'          : true,
+				'photoThumbSize'    : 75,
+				'photoLightboxSize' : 500
 		    };
 			var that = this;
 			
@@ -112,8 +118,11 @@
 					postIterator++;
 				});
 				
-				if(data.options.timeago) {
+				if(data.options.timeago && $("abbr.timeago", data.posts).length > 0) {
 					$("abbr.timeago", data.posts).timeago();
+				}
+				if(data.options.fancybox && $("a.lightbox", data.posts).length > 0) {
+					$("a.lightbox", data.posts).fancybox();
 				}
 				$this.append(data.posts);
 				
@@ -136,12 +145,29 @@
 				}
 				case "photo": {
 					body = '<div class="media">';
-					if(post['photo-link-url']) {
-						body += '<a href="' + post['photo-link-url'] + '">';
-					}
-					body += '<img alt="' + $(post['photo-caption']).text() + '" src="' + post['photo-url-' + data.options.photoSize] + '">';
-					if(post['photo-link-url']) {
-						body += '</a>';
+					if(post['photos'].length > 0) {
+						body += '<ul class="photos">';
+						$.each(post['photos'], function(i, photo) {
+							var oddeven = i%2 ? 'even' : 'odd';
+							var alt = '';
+							if(photo['photo-caption'] != undefined) {
+								alt = ' alt="' + photo['photo-caption'] + '"'; 
+							}
+							body += '<li class="' + oddeven + '">' +
+									'<a href="' + photo['photo-url-' + data.options.photoLightboxSize] + '" rel="post-' + post['id'] + '" class="lightbox">' +
+										'<img src="' + photo['photo-url-' + data.options.photoThumbSize] + '"' + alt + '>' +
+									'</a>' +
+								'</li>';
+						});
+						body += '</ul>';
+					} else {
+						if(post['photo-link-url']) {
+							body += '<a href="' + post['photo-link-url'] + '">';
+						}
+						body += '<img alt="' + $(post['photo-caption']).text() + '" src="' + post['photo-url-' + data.options.photoSize] + '">';
+						if(post['photo-link-url']) {
+							body += '</a>';
+						}
 					}
 					body += '<div class="description">' + post['photo-caption'] + '</div>' +
 						'</div>';
@@ -239,7 +265,6 @@
 		        '</li>';
 
 			data.posts.append(li);
-			
 		},
 
 		get_css_text_length: function(text) {

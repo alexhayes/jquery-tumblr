@@ -13,6 +13,7 @@ ul.tumblr-posts
 		padding: 0px 0px 20px 0px
 		border-bottom: 1px #EDEDED dotted
 		font-family: Helvetica,Arial,sans-serif
+		clear: both
 
 		.short
 			font-size: 36px
@@ -27,7 +28,7 @@ ul.tumblr-posts
 			font-size: 16px
 			line-height: 20px
 
-		.titleasdf
+		.title
 			color: #000
 			letter-spacing: -1px
 			margin: 0px 0px 5px 0px
@@ -75,6 +76,9 @@ ul.tumblr-posts
 			a
 				color: #444
 
+		.post-footer
+			clear: both
+
 		&.tumblr-post-regular
 			font-size: 12px
 			color: #444
@@ -83,9 +87,19 @@ ul.tumblr-posts
 				font-style: italic
 				border-left: solid 2px #444
 				padding-left: 10px
+			.description
+				img[align=left]
+					margin: 0px 3px 3px 0px
 
 		&.tumblr-post-photo
-		
+			ul.photos
+				list-style-type: none
+				padding-left: 0px
+				li
+					float: left
+					margin-right: 3px
+						
+				
 		&.tumblr-post-link
 
 			span.description
