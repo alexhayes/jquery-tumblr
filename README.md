@@ -24,16 +24,24 @@ Note that the markup generated is similar to that of tumblr's default theme howe
 	</script>
 ```
 
+## Url
+
+You must the url of your tumblr blog. Note that if you have set a custom domain in tumblr, you should use this as the value you set.
+
+- url: your tumblr url (ie. http://(YOUR NAME).tumblr.com or http://(YOUR NAME CUSTOM DOMAIN).com )
+
 ## Options
 
-The following options are available:
+### Pagination
 
-- url: your tumblr url (ie. http://(YOUR NAME).tumblr.com )
-- loading: A selector that specifies a element that can be shown when loading content from tumblr.
 - pagination: A selector that specifies where the pagination will reside. If one does not exist, pagination is disabled.
 - perPage: The number of posts to return. The default is 20, and the maximum is 50.
 - start: The post offset to start from. The default is 0.
 - paginationOptions: Other options to pass to jquery_pagination - See https://github.com/gbirke/jquery_pagination
+
+### Appearance
+
+- loading: A selector that specifies a element that can be shown when loading content from tumblr.
 - photoSize: The photo size to use, accepted values are 75, 100, 250, 400, 500 and 1280. Default is 400.
 - videoSize: The video size to embed, accepted values are 250, 500 or false. If false, the tumblr 'video-player' parameter will be used.
 - timeago: If true (default) then jquery-timeago will be used for post dates.
@@ -42,12 +50,15 @@ The following options are available:
 - fancybox: If true (default) then fancybox will be used when there are multiple photos. See photoThumbSize and photoLightboxSize
 - photoThumbSize: If there are multiple photos, they will be output in a ul/li tags, this value will be the size of image used. Accepted values are 75, 100, 250, 400, 500 and 1280. Default is 75.
 - photoLightboxSize: If there are multiple photos, this image size will be used for lightbox. Accepted values are 75, 100, 250, 400, 500 and 1280. Default is 1280.
+
+### Network
+
 - timeout: Ajax timeout defaults to 5000
 
 ## Optional Requirements
 
-[jquery_pagination](https://github.com/gbirke/jquery_pagination.git) - is needed if you want pagination. Until an issue with jquery_pagination is resolved then you should use [my fork](https://github.com/alexhayes/jquery_pagination) 
-[jquery-timeago](http://timeago.yarp.com/) - is needed if the timeago option is true (default).
+- [jquery_pagination](https://github.com/gbirke/jquery_pagination.git) - is needed if you want pagination. Until an issue with jquery_pagination is resolved then you should use [my fork](https://github.com/alexhayes/jquery_pagination) 
+- [jquery-timeago](http://timeago.yarp.com/) - is needed if the timeago option is true (default).
 
 ## License
 
