@@ -37,20 +37,20 @@
 		 */
 		init : function( options ) {
 			var settings = {
-				'loading'             : false,
-				'pagination'          : false,
+				'loading'            : false,
+				'pagination'         : false,
 				'perPage'            : 20,
-				'start'               : 0,
+				'start'              : 0,
 				'paginationOptions'  : {},
 				'photoSize'          : 400,
 				'videoSize'          : false,
-				'timeago'             : true,
+				'timeago'            : true,
 				'shortLength'        : 50,
 				'mediumLength'       : 100,
-				'fancybox'            : true,
-				'photoThumbSize'    : 75,
-				'photoLightboxSize' : 500,
-				'timeout'             : 5000
+				'fancybox'           : true,
+				'photoThumbSize'     : 75,
+				'photoLightboxSize'  : 500,
+				'timeout'            : 10000
 		    };
 			var that = this;
 			
@@ -106,6 +106,8 @@
 				$this.slideUp();
 			});
 
+			console.log('load', page);
+			
 			var $this = this, 
 				data = this.data('tumblr'),
 				params = {
@@ -134,6 +136,7 @@
 		},
 		
 		handleAjaxSuccess: function(tumblr_api_read) {
+			console.log('handleAjaxSuccess', tumblr_api_read);
 			return this.each(function() {
 				var $this = $(this),
 					data = $this.data('tumblr'),
@@ -169,12 +172,13 @@
 					$.extend(
 						data.options.paginationOptions, 
 						{
-					        items_perPage : data.options.perPage,
+					        items_per_page : data.options.perPage,
 					        callback       : function(new_page_index, pagination_container) {
 					        	$this.tumblr('load', new_page_index);	
 					        }
 						}
 					);
+					console.log(data.options.paginationOptions);
 					data.options.pagination.pagination(tumblr_api_read['posts-total'], data.options.paginationOptions);
 				}
 			});
