@@ -106,8 +106,6 @@
 				$this.slideUp();
 			});
 
-			console.log('load', page);
-			
 			var $this = this, 
 				data = this.data('tumblr'),
 				params = {
@@ -136,7 +134,6 @@
 		},
 		
 		handleAjaxSuccess: function(tumblr_api_read) {
-			console.log('handleAjaxSuccess', tumblr_api_read);
 			return this.each(function() {
 				var $this = $(this),
 					data = $this.data('tumblr'),
@@ -178,7 +175,6 @@
 					        }
 						}
 					);
-					console.log(data.options.paginationOptions);
 					data.options.pagination.pagination(tumblr_api_read['posts-total'], data.options.paginationOptions);
 				}
 			});
