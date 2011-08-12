@@ -1,14 +1,13 @@
 /**
  * jQuery tumblr plugin
  * This jQuery plugin was inspired by the work of Chris Tran - https://chris-tran.com/blog/?p=236
- * @name jquery-tumblr-0.1.js
+ * @name jquery-tumblr-0.2.js
  * @author Alex Hayes - http://alution.com
- * @version 0.1
- * @date May 20, 2011
+ * @version 0.2
+ * @date Aug 12, 2011
  * @category jQuery plugin
  * @copyright (c) 2011 Alex Hayes (alution.com)
  * @license Dual licensed under the MIT and GPL licenses.
- * @todo Add in pagination.
  * @todo Add ability to define hooks for user defined markup.
  */
 (function( $ ) {
@@ -190,8 +189,10 @@
 			switch(post.type) {
 				case "regular": {
 					var extraClass = $this.tumblr('getCssTextLength', post['regular-title']);
-					body = '<div class="title ' + extraClass + '">' + post['regular-title'] + '</div>' +
-                        	'<div class="description">' + post['regular-body'] + '</div>';
+					body = '<div class="title ' + extraClass + '">' + post['regular-title'] + '</div>';
+					if(post['regular-body']) {
+						post['regular-body'] += '<div class="description">' + post['regular-body'] + '</div>'; 
+					}
 					break;
 				}
 				case "photo": {
@@ -220,8 +221,10 @@
 							body += '</a>';
 						}
 					}
-					body += '<div class="description">' + post['photo-caption'] + '</div>' +
-						'</div>';
+					if(post['photo-caption']) {
+						body += '<div class="description">' + post['photo-caption'] + '</div>';
+					}
+					body += '</div>';
 					break;
 				}
 				case "link": {
@@ -262,11 +265,10 @@
 					break;
 				}
 				case "audio": {
-					body =
-                        // '<script src="http://assets.tumblr.com/javascript/tumblelog.js?537" language="javascript" type="text/javascript"></script>' + 
-                    	'<div class="media">' + post['audio-player'] + '</div>' +
-                        // '<script type="text/javascript">replaceIfFlash(9,"audio_player_459260683",\'\x3cdiv class=\x22audio_player\x22\x3e&lt;embed type="application/x-shockwave-flash" src="http://assets.tumblr.com/swf/audio_player_black.swf?audio_file=http://www.tumblr.com/audio_file/459260683/tumblr_ksc4i2SkVU1qz8ouq&amp;color=FFFFFF" height="27" width="207" quality="best"&gt;&lt;/embed&gt;\x3c/div\x3e\')</script>'
-						'<div class="description">' + post['audio-caption'] + '</div>'; 
+					body = '<div class="media">' + post['audio-player'] + '</div>';
+					if(post['audio-caption']) {
+						body += '<div class="description">' + post['audio-caption'] + '</div>';	
+					}
 					break;
 				}
 				case "video": {
@@ -274,9 +276,10 @@
 					if(data.options.videoSize) {
 						player = 'video-player-' + data.options.videoSize;
 					}
-					body = 
-                        '<div class="media">' + post[player] + '</div>' +
-                        '<div class="description">' + post['video-caption'] + '</div>';
+					body = '<div class="media">' + post[player] + '</div>';
+					if(post['video-caption']) {
+						body += '<div class="description">' + post['video-caption'] + '</div>';
+					}
 					break;
 				}
 				default:
@@ -323,12 +326,12 @@
 				data = $this.data('tumblr'),
 				shortLength = data.options.shortLength,
 				mediumLength = data.options.mediumLength;
-				 
+
 			var extraClass = 'long';
-			if(text.length < shortLength) {
+			if(text != null && text.length < shortLength) {
 				extraClass = 'short';
 			}
-			else if(text.length < mediumLength) {
+			else if(text != null && text.length < mediumLength) {
 				extraClass = 'medium';
 			}
 			return extraClass;
