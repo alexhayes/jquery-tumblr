@@ -3,8 +3,8 @@
  * This jQuery plugin was inspired by the work of Chris Tran - https://chris-tran.com/blog/?p=236
  * @name jquery-tumblr-0.2.js
  * @author Alex Hayes - http://alution.com
- * @version 0.2
- * @date Aug 12, 2011
+ * @version 0.3
+ * @date Aug 17, 2011
  * @category jQuery plugin
  * @copyright (c) 2011 Alex Hayes (alution.com)
  * @license Dual licensed under the MIT and GPL licenses.
