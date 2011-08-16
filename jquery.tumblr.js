@@ -191,7 +191,7 @@
 					var extraClass = $this.tumblr('getCssTextLength', post['regular-title']);
 					body = '<div class="title ' + extraClass + '">' + post['regular-title'] + '</div>';
 					if(post['regular-body']) {
-						post['regular-body'] += '<div class="description">' + post['regular-body'] + '</div>'; 
+						body += '<div class="description">' + post['regular-body'] + '</div>'; 
 					}
 					break;
 				}
